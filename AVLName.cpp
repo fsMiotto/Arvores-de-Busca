@@ -17,23 +17,27 @@ void AVLName::insert(User newUser){ // método público
 }
 
 
-void AVLName::insert(User newUser, TreePointer &pA, bool &h) {
+int AVLName::insert(User newUser, TreePointer &pA, bool &h) {
     TreePointer pB, pC;
+    int comp = 0; //comparações
 
     if(pA == NULL){ // inserir
         pA = new TreeNode; //criando um nó
         if( pA == NULL ){ //verificacao de memoria
-            std::cout << “Sem memória” << std::endl;
-            abort();
+            return -1;//não tem memória
         }
+        comp++;//comparação se é nulo
 
         h = true; //liberando para rotacao
         pA->entry = newUser;
         pA->leftNode = pA->rightNode = NULL;
         pA->bal = 0;
-    } 
+        comp++;//comparação só do do if
+
+    }
 
     else if(newUser.name < pA->entry.name){ //indo para subarvore esquerda
+        comp += 2; //comparação do if + else if
         insert(newUser, pA->leftNode, h); //recurao para busca e verificacao do balanceamento voltando
         if(h){ // h = true, verificando balanceamento
             switch (pA->bal){
@@ -65,14 +69,18 @@ void AVLName::insert(User newUser, TreePointer &pA, bool &h) {
                         pB->bal = (pC->bal == -1) ? +1 : 0;  // ajustando os balanceamentos
                         pA = pC;
                     }
-
+                    
+                    comp++; // comparação do if (linha 56)
                     pA->bal = 0; 
                     h = false; //arvore balanceada, fechando o balanceamento
             } //fim switch
+            comp++;//comparação do switch
         }
+        comp++;//comparação do if (linha 42)
     }
 
     else if(newUser.name > pA->entry.name){ //indo para subarvore direita
+        comp += 3; //comparação do if + 2 else if
         insert(newUser, pA->rightNode, h); //recurao para busca e verificacao do balanceamento voltando
         if(h){ // h = true, verificando balanceamento
             switch (pA->bal){
@@ -104,14 +112,22 @@ void AVLName::insert(User newUser, TreePointer &pA, bool &h) {
                         pB->bal = (pC->bal == +1) ? -1 : 0;  // ajustando os balanceamentos
                         pA = pC;
                     }
+
+                    comp++; // comparação do if (linha 99)
                     pA->bal = 0; 
                     h = false; //arvore balanceada, fechando o balanceamento
             } //fim switch
+            comp++;//comparação do switch
         }
+        comp++; //comparação do if (linha 86)
     }
 
-    // elemento encontrado
-    else{ std::cerr << "Usuário existente" << std::endl; } 
+    else{// elemento encontrado 
+        std::cerr << "Usuário existente" << std::endl;
+        comp += 3; //comparação do if + 2 else if
+    }
+
+    return comp;// finalizandoo e retornando a quantidade de comparações 
 }
 
 // metodo de remocao

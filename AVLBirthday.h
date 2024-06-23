@@ -5,13 +5,13 @@
 #include <iomanip>
 #include <ctime>
 #include <string>
+#include "User.h"
 
-typedef std::tm TreeEntry; //tipo da variável recebida para inserçã, remoção, e busca
 
 class AVLBirthday {
     private:
         //Declarando estruturas e tipos
-        struct User;
+        typedef std::tm TreeEntry; //tipo da variável recebida para inserçã, remoção, e busca
         struct TreeNode; // estrutura TreeNode definida abaixo no código
         typedef TreeNode *TreePointer; // TreePointer é um ponteiro para estrutura TreeNode
         
@@ -23,11 +23,6 @@ class AVLBirthday {
         int compareDates(const std::tm& tm1, const std::tm& tm2);
 
         //Montando as estruturas
-        struct User { //estrutura do usuário
-            std::string name;
-            int id;
-            std::tm date;
-        };
         struct TreeNode { 
             User entry; // tipo de dado colocado na árvore
             int bal; // -1, 0, +1
@@ -43,7 +38,7 @@ class AVLBirthday {
         AVLBirthday();
         ~AVLBirthday(); 
         TreePointer search(TreeEntry x);
-        void insert(User newUser);
+        int insert(User newUser);
         bool remove(TreeEntry x, TreePointer &p, bool &h);
 
 };

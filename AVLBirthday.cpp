@@ -4,8 +4,8 @@
 //Esse método de procura acha o elemento na arvore e retorna a estrutura, usado na main para buscar e imprimir o usuário
 AVLBirthday::TreePointer AVLBirthday::search(TreeEntry x){
     TreePointer t=root;
-    while ( t != NULL && compareDates(x, t->entry.date) != 0 ){
-        if(compareDates(x, t->entry.date) == -1){ t = t->leftNode; } // procurar na subárvore esquerda
+    while ( t != NULL && compareDates(x, t->entry.birthday) != 0 ){
+        if(compareDates(x, t->entry.birthday) == -1){ t = t->leftNode; } // procurar na subárvore esquerda
         else { t = t->rightNode; } // procurar na subárvore direita
     }
     return t; //se t->entry == x retorna a estrutura, se não retorna NULL (verificar estrutura antes de usar)
@@ -17,23 +17,26 @@ void AVLBirthday::insert(User newUser){ // método público
 }
 
 
-void AVLBirthday::insert(User newUser, TreePointer &pA, bool &h) {
+int AVLBirthday::insert(User newUser, TreePointer &pA, bool &h) {
     TreePointer pB, pC;
+    int comp = 0; //comparações
 
     if(pA == NULL){ // inserir
         pA = new TreeNode; //criando um nó
         if( pA == NULL ){ //verificacao de memoria
-            std::cout << “Sem memória” << std::endl;
-            abort();
+            return -1;
         }
+        comp++;//comparação se é nulo
 
         h = true; //liberando para rotacao
         pA->entry = newUser;
         pA->leftNode = pA->rightNode = NULL;
         pA->bal = 0;
+        comp++;//comparação só do do if
     } 
 
-    else if(compareDates(newUser.date, pA->entry.date) == -1){ //indo para subarvore esquerda
+    else if(compareDates(newUser.birthday, pA->entry.birthday) == -1){ //indo para subarvore esquerda
+        comp += 2; //comparação do if + else if
         insert(newUser, pA->leftNode, h); //recurao para busca e verificacao do balanceamento voltando
         if(h){ // h = true, verificando balanceamento
             switch (pA->bal){
@@ -66,13 +69,16 @@ void AVLBirthday::insert(User newUser, TreePointer &pA, bool &h) {
                         pA = pC;
                     }
 
+                    comp++; // comparação do if (linha 55)
                     pA->bal = 0; 
                     h = false; //arvore balanceada, fechando o balanceamento
             } //fim switch
+            comp++;//comparação do switch
         }
+        comp++;//comparação do if (linha 41)
     }
 
-    else if(compareDates(newUser.date, pA->entry.date) == 1){ //indo para subarvore direita
+    else if(compareDates(newUser.birthday, pA->entry.birthday) == 1){ //indo para subarvore direita
         insert(newUser, pA->rightNode, h); //recurao para busca e verificacao do balanceamento voltando
         if(h){ // h = true, verificando balanceamento
             switch (pA->bal){
@@ -104,14 +110,22 @@ void AVLBirthday::insert(User newUser, TreePointer &pA, bool &h) {
                         pB->bal = (pC->bal == +1) ? -1 : 0;  // ajustando os balanceamentos
                         pA = pC;
                     }
+
+                    comp++; // comparação do if (linha 97)
                     pA->bal = 0; 
                     h = false; //arvore balanceada, fechando o balanceamento
             } //fim switch
+            comp++;//comparação do switch
         }
+        comp++; //comparação do if (linha 83)
     }
 
-    // elemento encontrado
-    else{ std::cerr << "Usuário existente" << std::endl; } 
+    else{// elemento encontrado 
+        std::cerr << "Usuário existente" << std::endl;
+        comp += 3; //comparação do if + 2 else if
+    }
+
+    return comp;// finalizandoo e retornando a quantidade de comparações
 }
 
 // metodo de remocao
@@ -120,12 +134,12 @@ bool AVLBirthday::remove(TreeEntry x, TreePointer &p, bool &h){
 
     if(p == NULL){ return false; } // x não encontrado
 
-    if(compareDates(x, p->entry.date) == -1){ // indo para subarvore esquerda
+    if(compareDates(x, p->entry.birthday) == -1){ // indo para subarvore esquerda
         removeu = remove(x, p->leftNode, h); //recursividade para busca, remocao e rotacao
         if(h){ rotacaoR(p, h); } //faz a rotacao caso desbalanceado
         return removeu; //retorna se o elemento foi removido ou não
     }
-    else if(compareDates(x, p->entry.date) == 1){ // indo para subarvore esquerda
+    else if(compareDates(x, p->entry.birthday) == 1){ // indo para subarvore esquerda
         removeu = remove(x, p->rightNode, h); //recursividade para busca, remocao e rotacao
         if(h){ rotacaoR(p, h); } //faz a rotacao caso desbalanceado
         return removeu; //retorna se o elemento foi removido ou não

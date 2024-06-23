@@ -24,8 +24,7 @@ int BSTID::insert(User newUser) {
     r = new TreeNode; //instanciando novo elemento
 
     if( r == NULL ){     //verificacao de memoria
-        std::cout << “Sem memória” << std::endl;
-        abort();
+        return -1;
     }
     comp++; //comparacao da verificacao de memoria
      

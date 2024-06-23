@@ -5,15 +5,14 @@
 #include <string>
 #include <iomanip>
 #include <ctime>
+#include "User.h"
 
-
-typedef std::tm TreeEntry;
 
 
 class BSTBirthday { 
     private:
         //Declarando estruturas e tipos
-        struct User;
+        typedef std::tm TreeEntry;
         struct TreeNode;
         typedef TreeNode (*TreePointer); // TreePointer é um ponteiro para estrutura TreeNode
         
@@ -23,11 +22,6 @@ class BSTBirthday {
         int compareDates(const std::tm& tm1, const std::tm& tm2);
 
         //Montando as estruturas
-        struct User { //estrutura do usuário
-            std::string name;
-            int id;
-            std::tm date;
-        };
         struct TreeNode { 
             User entry; // tipo de dado colocado na árvore
             TreePointer leftNode, rightNode; // subárvores

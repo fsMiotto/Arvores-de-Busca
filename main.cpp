@@ -12,22 +12,15 @@
 #include "AVLName.h"
 #include "AVLID.h"
 #include "AVLBirthday.h"
-
-
-// Estrutura para armazenar os dados do usuário
-struct User {
-    int id;
-    std::string name;
-    std::tm birthday;
-};
+#include "User.h"
 
 // Função auxiliar para converter a data de string para std::tm
-std::tm stringToDate(const std::string& date) {
+std::tm stringToDate(const std::string& birthday) {
     std::tm tm = {};
-    std::istringstream ss(date);
+    std::istringstream ss(birthday);
     ss >> std::get_time(&tm, "%Y-%m-%d");
     if (ss.fail()) {
-        std::cerr << "Falha ao converter a data: " << date << std::endl;
+        std::cerr << "Falha ao converter a data: " << birthday << std::endl;
     }
     return tm;
 }

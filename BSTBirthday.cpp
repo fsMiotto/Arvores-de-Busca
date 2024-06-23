@@ -10,8 +10,8 @@ BSTBirthday::TreePointer BSTBirthday::search(TreeEntry x){
 
 //Esse método de procura acha o elemento na arvore, usado em métodos para reciclar codigo
 void BSTBirthday::search(TreeEntry x, TreePointer &t){
-    while ( t != NULL && compareDates(x, t->entry.date) != 0 ){
-        if( compareDates(x, t->entry.date) == -1 ){ t = t->leftNode; } // procurar na subárvore esquerda
+    while ( t != NULL && compareDates(x, t->entry.birthday) != 0 ){
+        if( compareDates(x, t->entry.birthday) == -1 ){ t = t->leftNode; } // procurar na subárvore esquerda
         else { t = t->rightNode; } // procurar na subárvore direita
     }
 }
@@ -24,18 +24,17 @@ int BSTBirthday::insert(User newUser) {
     r = new TreeNode; //instanciando novo elemento
 
     if( r == NULL ){     //verificacao de memoria
-        std::cout << “Sem memória” << std::endl;
-        abort();
+        return -1;
     }
     comp++; //comparacao da verificacao de memoria
      
     while ( q != NULL ){ //busca para insert
-        if (compareDates(newUser.date, q->entry.date) == 0){
+        if (compareDates(newUser.birthday, q->entry.birthday) == 0){
             return 0; //elemento ja esta na arvore
         }
 
         p = q; // p é o pai de q
-        if( compareDates(newUser.date, q->entry.date) == -1 ){ q = q->leftNode; }
+        if( compareDates(newUser.birthday, q->entry.birthday) == -1 ){ q = q->leftNode; }
         else{ q = q->rightNode; }
         comp+= 3;// comparacao dos 2 if e do while
     }
@@ -49,7 +48,7 @@ int BSTBirthday::insert(User newUser) {
     comp++; //comparação do if
     if( p == NULL ){ root = r; } // árvore vazia
     else {
-        if(compareDates(newUser.date, p->entry.date) == -1){ p->leftNode = r; } //insercao a esquerda
+        if(compareDates(newUser.birthday, p->entry.birthday) == -1){ p->leftNode = r; } //insercao a esquerda
         else{ p->rightNode = r; } //incercao a direita
         comp++;
     }
