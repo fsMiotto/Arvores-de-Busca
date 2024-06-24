@@ -31,8 +31,8 @@ class BSTBirthday {
         TreePointer root;
         
     public:
-        BSTBirthday();
-        ~BSTBirthday();
+        BSTBirthday(){ root == NULL; } //inicializando
+        ~BSTBirthday(){} //encerrando
         int insert(User newUser); //contar as comparações
         bool remove(TreeEntry x);
         TreePointer search(TreeEntry x);

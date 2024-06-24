@@ -16,10 +16,11 @@ class AVLID {
         typedef TreeNode *TreePointer; // TreePointer é um ponteiro para estrutura TreeNode
         
         //metodos
-        void insert(User newUser, TreePointer &pA, bool &h);
+        int insert(User newUser, TreePointer &pA, bool &h);
         void removeMin(TreePointer &q, TreePointer &r, bool &h);
         void rotacaoL(TreePointer &pA, bool &h);
         void rotacaoR(TreePointer &pA, bool &h);
+        int att_alturaEfolhas(TreePointer &p);
 
         //Montando as estruturas
         struct TreeNode { 
@@ -33,11 +34,19 @@ class AVLID {
         
     public:
         //metodos
-        AVLID();
-        ~AVLID();
+        AVLID();//inicializando
+        ~AVLID(){} //encerrando
         TreePointer search(TreeEntry x);
         int insert(User newUser);
         bool remove(TreeEntry x, TreePointer &p, bool &h);
+        void att_alturaEfolhas();
+
+        //variaveis
+        float MediaComp; //Média de Comparações por Usuário  
+        float MediaRotacao; //Média de Rotações por Usuário
+        int QuantUsers; //Quantidade de Usuarios
+        int Altura; // altura da arvore
+        int Folhas; // Numero de folhas da arvore
 
 };
 

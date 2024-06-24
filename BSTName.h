@@ -30,8 +30,8 @@ class BSTName {
         TreePointer root;
         
     public:
-        BSTName();
-        ~BSTName();
+        BSTName(){ root == NULL; } //inicializando
+        ~BSTName(){} //encerrando
         int insert(User newUser); //contar as comparações
         bool remove(TreeEntry x);
         TreePointer search(TreeEntry x);

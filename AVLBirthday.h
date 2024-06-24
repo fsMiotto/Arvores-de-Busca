@@ -16,11 +16,12 @@ class AVLBirthday {
         typedef TreeNode *TreePointer; // TreePointer é um ponteiro para estrutura TreeNode
         
         //metodos
-        void insert(User newUser, TreePointer &pA, bool &h);
+        int insert(User newUser, TreePointer &pA, bool &h);
         void removeMin(TreePointer &q, TreePointer &r, bool &h);
         void rotacaoL(TreePointer &pA, bool &h);
         void rotacaoR(TreePointer &pA, bool &h);
         int compareDates(const std::tm& tm1, const std::tm& tm2);
+        int att_alturaEfolhas(TreePointer &p);
 
         //Montando as estruturas
         struct TreeNode { 
@@ -36,10 +37,18 @@ class AVLBirthday {
     public:
         //metodos
         AVLBirthday();
-        ~AVLBirthday(); 
+        ~AVLBirthday(){}//encerrando
         TreePointer search(TreeEntry x);
         int insert(User newUser);
         bool remove(TreeEntry x, TreePointer &p, bool &h);
+        void att_alturaEfolhas();
+
+        //variaveis
+        float MediaComp; //Média de Comparações por Usuário
+        float MediaRotacao; //Média de Rotações por Usuário
+        int QuantUsers; //Quantidade de Usuarios
+        int Altura; // altura da arvore
+        int Folhas; // Numero de folhas da arvore
 
 };
 

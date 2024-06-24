@@ -1,4 +1,4 @@
-#include <iostream>
+ #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
@@ -81,15 +81,14 @@ int main() {
 
 
     for (int i = 0; i < users.size(); i++) {
-        bst_name.insert(users[i]);
-        bst_id.insert(users[i]);
-        bst_birthday.insert(users[i]);
-        avl_name.insert(users[i]);
-        avl_id.insert(users[i]);
-        avl_birthday.insert(users[i]);
+        int comp = bst_name.insert(users[i]);
+        int comp1 = bst_id.insert(users[i]);
+        int comp2 = bst_birthday.insert(users[i]);
+        int comp3 = avl_name.insert(users[i]);
+        int comp4 = avl_id.insert(users[i]);
+        int comp5 = avl_birthday.insert(users[i]);
     }
 
 
     return 0;
 }
-

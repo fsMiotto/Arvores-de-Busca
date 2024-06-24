@@ -29,8 +29,8 @@ class BSTID {
         TreePointer root;
         
     public:
-        BSTID();
-        ~BSTID();
+        BSTID(){ root == NULL;} //inicializando
+        ~BSTID(){} //encerrando
         int insert(User newUser); //contar as comparações
         bool remove(TreeEntry x);
         TreePointer search(TreeEntry x);

@@ -1,5 +1,33 @@
 #include "AVLName.h"
 
+//inicializando
+AVLName::AVLName(){ 
+    root == NULL;
+    float MediaComp = 0;
+    float MediaRotacao = 0;
+    int QuantUsers = 0;
+    int Altura = 0;
+    int folhas = 0; 
+}
+
+void AVLName::att_alturaEfolhas(){
+    this->Altura = att_alturaEfolhas(root);
+}
+
+int AVLName::att_alturaEfolhas(TreePointer& p){
+    if (p == nullptr) {
+        return 0; // A altura de uma árvore vazia é 0
+    }
+
+    if (p->leftNode == nullptr && p->rightNode == nullptr) {
+        this->Folhas += 1; // Incrementa a contagem de folhas
+        return 1; // A altura desta subárvore é 1
+    } else {
+        int leftHeight = att_alturaEfolhas(p->leftNode);
+        int rightHeight = att_alturaEfolhas(p->rightNode);
+        return 1 + std::max(leftHeight, rightHeight); // A altura é 1 + maior altura das subárvores
+    }
+}
 
 //Esse método de procura acha o elemento na arvore e retorna a estrutura, usado na main para buscar e imprimir o usuário
 AVLName::TreePointer AVLName::search(TreeEntry x){
@@ -11,15 +39,16 @@ AVLName::TreePointer AVLName::search(TreeEntry x){
     return t; //se t->entry == x retorna a estrutura, se não retorna NULL (verificar estrutura antes de usar)
 }
 
-void AVLName::insert(User newUser){ // método público
+int AVLName::insert(User newUser){ // método público
     bool h = false;// inicio do método de incerção com h = false para recursao
-    insert(newUser, root, h);
+    int comp = insert(newUser, root, h);
+    return comp;
 }
 
 
 int AVLName::insert(User newUser, TreePointer &pA, bool &h) {
     TreePointer pB, pC;
-    int comp = 0; //comparações
+    int comp = 0, rotacao = 0; //comparações e rotações
 
     if(pA == NULL){ // inserir
         pA = new TreeNode; //criando um nó
@@ -33,7 +62,7 @@ int AVLName::insert(User newUser, TreePointer &pA, bool &h) {
         pA->leftNode = pA->rightNode = NULL;
         pA->bal = 0;
         comp++;//comparação só do do if
-
+        this->QuantUsers++; //Quantidade de Usuarios aumentou
     }
 
     else if(newUser.name < pA->entry.name){ //indo para subarvore esquerda
@@ -70,6 +99,7 @@ int AVLName::insert(User newUser, TreePointer &pA, bool &h) {
                         pA = pC;
                     }
                     
+                    rotacao++;
                     comp++; // comparação do if (linha 56)
                     pA->bal = 0; 
                     h = false; //arvore balanceada, fechando o balanceamento
@@ -113,6 +143,7 @@ int AVLName::insert(User newUser, TreePointer &pA, bool &h) {
                         pA = pC;
                     }
 
+                    rotacao++;
                     comp++; // comparação do if (linha 99)
                     pA->bal = 0; 
                     h = false; //arvore balanceada, fechando o balanceamento
@@ -127,7 +158,10 @@ int AVLName::insert(User newUser, TreePointer &pA, bool &h) {
         comp += 3; //comparação do if + 2 else if
     }
 
-    return comp;// finalizandoo e retornando a quantidade de comparações 
+    att_alturaEfolhas(); // atualiza a nova altura
+    this->MediaRotacao = (this->MediaRotacao*this->QuantUsers + rotacao) / this->QuantUsers; //atualizando a média de rotações
+    this->MediaComp = (this->MediaComp*this->QuantUsers + comp) / this->QuantUsers; //atualizando a média de comparações
+    return comp;// finalizandoo e retornando a quantidade de comparações desta inserção
 }
 
 // metodo de remocao
@@ -163,6 +197,8 @@ bool AVLName::remove(TreeEntry x, TreePointer &p, bool &h){
         }
 
         delete q; //removendo elemento
+        att_alturaEfolhas(); //atualizar a nova altura
+        this->QuantUsers--; //Quantidade de Usuarios diminuiu
         return true; // x removido
     }
 }
