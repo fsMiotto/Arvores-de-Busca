@@ -20,6 +20,7 @@ class BSTBirthday {
         void search(TreeEntry x, TreePointer &t);
         void removeMin(TreePointer &q, TreePointer &r);
         int compareDates(const std::tm& tm1, const std::tm& tm2);
+        int att_alturaEfolhas(TreePointer& p);
 
         //Montando as estruturas
         struct TreeNode { 
@@ -31,11 +32,12 @@ class BSTBirthday {
         TreePointer root;
         
     public:
-        BSTBirthday(){ root == NULL; } //inicializando
+        BSTBirthday(); //inicializando
         ~BSTBirthday(){} //encerrando
         int insert(User newUser); //contar as comparações
         bool remove(TreeEntry x);
         TreePointer search(TreeEntry x);
+        void att_alturaEfolhas();
 
 };
 

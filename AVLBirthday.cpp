@@ -11,18 +11,20 @@ AVLBirthday::AVLBirthday(){
 }
 
 void AVLBirthday::att_alturaEfolhas(){
-    this->Altura = att_alturaEfolhas(root);
+    if (root == NULL){
+        this->Altura = 0 // arvore vazia
+        this->Folhas = 0; // arvore vazia
+
+    } else{
+        this->Altura = att_alturaEfolhas(root);
+    }
 }
 
 int AVLBirthday::att_alturaEfolhas(TreePointer& p){
-    if (p == nullptr) {
-        return 0; // A altura de uma árvore vazia é 0
-    }
-
-    if (p->leftNode == nullptr && p->rightNode == nullptr) {
+    if (p->leftNode == nullptr && p->rightNode == nullptr){
         this->Folhas += 1; // Incrementa a contagem de folhas
         return 1; // A altura desta subárvore é 1
-    } else {
+    } else{
         int leftHeight = att_alturaEfolhas(p->leftNode);
         int rightHeight = att_alturaEfolhas(p->rightNode);
         return 1 + std::max(leftHeight, rightHeight); // A altura é 1 + maior altura das subárvores

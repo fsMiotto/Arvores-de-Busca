@@ -19,6 +19,7 @@ class BSTName {
         //declaração de métodos
         void search(TreeEntry x, TreePointer &t);
         void removeMin(TreePointer &q, TreePointer &r);
+        int att_alturaEfolhas(TreePointer& p);
 
         //Montando as estruturas
         struct TreeNode { 
@@ -30,11 +31,12 @@ class BSTName {
         TreePointer root;
         
     public:
-        BSTName(){ root == NULL; } //inicializando
+        BSTName(); //inicializando
         ~BSTName(){} //encerrando
         int insert(User newUser); //contar as comparações
         bool remove(TreeEntry x);
         TreePointer search(TreeEntry x);
+        void att_alturaEfolhas();
 
 };
 

@@ -1,5 +1,34 @@
 #include "BSTBirthday.h"
 
+//inicializando
+BSTBirthday::BSTBirthday(){ 
+    root == NULL;
+    float MediaComp = 0;
+    int QuantUsers = 0;
+    int Altura = 0;
+    int folhas = 0; 
+}
+
+void BSTBirthday::att_alturaEfolhas(){
+    if (root == NULL){
+        this->Altura = 0 // arvore vazia
+        this->Folhas = 0; // arvore vazia
+
+    } else{
+        this->Altura = att_alturaEfolhas(root);
+    }
+}
+
+int BSTBirthday::att_alturaEfolhas(TreePointer& p){
+    if (p->leftNode == nullptr && p->rightNode == nullptr){
+        this->Folhas += 1; // Incrementa a contagem de folhas
+        return 1; // A altura desta subárvore é 1
+    } else{
+        int leftHeight = att_alturaEfolhas(p->leftNode);
+        int rightHeight = att_alturaEfolhas(p->rightNode);
+        return 1 + std::max(leftHeight, rightHeight); // A altura é 1 + maior altura das subárvores
+    }
+}
 
 //Esse método de procura acha o elemento na arvore e retorna a estrutura, usado na main para buscar e imprimir o usuário
 BSTBirthday::TreePointer BSTBirthday::search(TreeEntry x){

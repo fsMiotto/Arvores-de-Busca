@@ -18,6 +18,7 @@ class BSTID {
         //declaração de métodos
         void search(TreeEntry x, TreePointer &t);
         void removeMin(TreePointer &q, TreePointer &r);
+        int att_alturaEfolhas(TreePointer& p);
 
         //Montando as estruturas
         struct TreeNode { 
@@ -29,11 +30,12 @@ class BSTID {
         TreePointer root;
         
     public:
-        BSTID(){ root == NULL;} //inicializando
+        BSTID(); //inicializando
         ~BSTID(){} //encerrando
         int insert(User newUser); //contar as comparações
         bool remove(TreeEntry x);
         TreePointer search(TreeEntry x);
+        void att_alturaEfolhas();
 
 };
 
