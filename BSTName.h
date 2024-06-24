@@ -19,7 +19,7 @@ class BSTName {
         //declaração de métodos
         void search(TreeEntry x, TreePointer &t);
         void removeMin(TreePointer &q, TreePointer &r);
-        int att_alturaEfolhas(TreePointer& p);
+        int altura_e_folhas(TreePointer& p);
 
         //Montando as estruturas
         struct TreeNode { 
@@ -35,8 +35,14 @@ class BSTName {
         ~BSTName(){} //encerrando
         int insert(User newUser); //contar as comparações
         bool remove(TreeEntry x);
-        TreePointer search(TreeEntry x);
-        void att_alturaEfolhas();
+        User::User search(TreeEntry x);
+        void altura_e_folhas();
+
+        //variaveis
+        float MediaComp; //Média de Comparações por Usuário
+        int QuantUsers; //Quantidade de Usuarios
+        int Altura; // altura da arvore
+        int Folhas; // Numero de folhas da arvore
 
 };
 

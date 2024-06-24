@@ -20,7 +20,7 @@ class AVLID {
         void removeMin(TreePointer &q, TreePointer &r, bool &h);
         void rotacaoL(TreePointer &pA, bool &h);
         void rotacaoR(TreePointer &pA, bool &h);
-        int att_alturaEfolhas(TreePointer &p);
+        int altura_e_folhas(TreePointer &p);
 
         //Montando as estruturas
         struct TreeNode { 
@@ -36,10 +36,10 @@ class AVLID {
         //metodos
         AVLID();//inicializando
         ~AVLID(){} //encerrando
-        TreePointer search(TreeEntry x);
+        User::User search(TreeEntry x);
         int insert(User newUser);
         bool remove(TreeEntry x, TreePointer &p, bool &h);
-        void att_alturaEfolhas();
+        void altura_e_folhas();
 
         //variaveis
         float MediaComp; //Média de Comparações por Usuário  

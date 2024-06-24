@@ -10,36 +10,42 @@ AVLBirthday::AVLBirthday(){
     int folhas = 0; 
 }
 
-void AVLBirthday::att_alturaEfolhas(){
+void AVLBirthday::altura_e_folhas(){
     if (root == NULL){
-        this->Altura = 0 // arvore vazia
+        this->Altura = 0; // arvore vazia
         this->Folhas = 0; // arvore vazia
 
     } else{
-        this->Altura = att_alturaEfolhas(root);
+        this->Altura = altura_e_folhas(root);
     }
 }
 
-int AVLBirthday::att_alturaEfolhas(TreePointer& p){
+int AVLBirthday::altura_e_folhas(TreePointer& p){
     if (p->leftNode == nullptr && p->rightNode == nullptr){
         this->Folhas += 1; // Incrementa a contagem de folhas
         return 1; // A altura desta subárvore é 1
     } else{
-        int leftHeight = att_alturaEfolhas(p->leftNode);
-        int rightHeight = att_alturaEfolhas(p->rightNode);
+        int leftHeight = altura_e_folhas(p->leftNode);
+        int rightHeight = altura_e_folhas(p->rightNode);
         return 1 + std::max(leftHeight, rightHeight); // A altura é 1 + maior altura das subárvores
     }
 }
 
 
 //Esse método de procura acha o elemento na arvore e retorna a estrutura, usado na main para buscar e imprimir o usuário
-AVLBirthday::TreePointer AVLBirthday::search(TreeEntry x){
+User::User AVLBirthday::search(TreeEntry x){
     TreePointer t=root;
     while ( t != NULL && compareDates(x, t->entry.birthday) != 0 ){
         if(compareDates(x, t->entry.birthday) == -1){ t = t->leftNode; } // procurar na subárvore esquerda
         else { t = t->rightNode; } // procurar na subárvore direita
     }
-    return t; //se t->entry == x retorna a estrutura, se não retorna NULL (verificar estrutura antes de usar)
+
+    if (t != NULL) {
+        return t->entry; // se encontrou, retorna a estrutura
+    } else {
+        User userEmpty; 
+        return userEmpty; // se não encontrou, retorna um User vazio
+    }
 }
 
 int AVLBirthday::insert(User newUser){ // método público
@@ -156,12 +162,11 @@ int AVLBirthday::insert(User newUser, TreePointer &pA, bool &h) {
         comp++; //comparação do if (linha 83)
     }
 
-    else{// elemento encontrado 
-        std::cerr << "Usuário existente" << std::endl;
-        comp += 3; //comparação do if + 2 else if
+    else{// elemento encontrado
+        return -2;
     }
 
-    att_alturaEfolhas(); // atualiza a nova altura
+    altura_e_folhas(); // atualiza a nova altura
     this->MediaRotacao = (this->MediaRotacao*this->QuantUsers + rotacao) / this->QuantUsers; //atualizando a média de rotações
     this->MediaComp = (this->MediaComp*this->QuantUsers + comp) / this->QuantUsers; //atualizando a média de comparações
     return comp;// finalizandoo e retornando a quantidade de comparações
@@ -201,7 +206,7 @@ bool AVLBirthday::remove(TreeEntry x, TreePointer &p, bool &h){
 
         delete q; //removendo elemento
         this->QuantUsers--; //Quantidade de Usuarios diminuiu
-        att_alturaEfolhas(); // atualiza a nova altura
+        altura_e_folhas(); // atualiza a nova altura
         return true; // x removido
     }
 }
@@ -305,12 +310,4 @@ void AVLBirthday::rotacaoL(TreePointer &pA, bool &h){
             }
             break;
     }
-}
-
-int AVLBirthday::compareDates(const std::tm& tm1, const std::tm& tm2) {
-    std::time_t time1 = std::mktime(const_cast<std::tm*>(&tm1));
-    std::time_t time2 = std::mktime(const_cast<std::tm*>(&tm2));
-    if (time1 > time2){ return 1; }
-    else if (time1 < time2){ return -1; }
-    else{ return 0; } // As datas são iguais
 }
