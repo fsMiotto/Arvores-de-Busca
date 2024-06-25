@@ -18,6 +18,7 @@ class BSTName {
         
         //declaração de métodos
         void search(TreeEntry x, TreePointer &t);
+        bool remove(TreeEntry x, TreePointer &p);
         void removeMin(TreePointer &q, TreePointer &r);
         int altura_e_folhas(TreePointer& p);
 
@@ -34,8 +35,8 @@ class BSTName {
         BSTName(); //inicializando
         ~BSTName(){} //encerrando
         int insert(User newUser); //contar as comparações
-        bool remove(TreeEntry x);
-        User::User search(TreeEntry x);
+        void remove(TreeEntry x);
+        User search(TreeEntry x);
         void altura_e_folhas();
 
         //variaveis

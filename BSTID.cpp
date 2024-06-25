@@ -31,7 +31,7 @@ int BSTID::altura_e_folhas(TreePointer& p){
 }
 
 //Esse método de procura acha o elemento na arvore e retorna a estrutura, usado na main para buscar e imprimir o usuário
-User::User BSTID::search(TreeEntry x){
+User BSTID::search(TreeEntry x){
     TreePointer t=root;
     search(x, t);
 
@@ -94,33 +94,43 @@ int BSTID::insert(User newUser) {
     return comp;
 }
 
-
+//metodo publico de remocao
+void BSTID::remove(TreeEntry x){
+    if(remove(x, root)){
+        std::cout << "\n Paciente removido" << std::endl; 
+    } else{
+        std::cout << "\n falha ao remover o paciente" << std::endl;
+    }
+}
 
 // remocao de tupla
-bool BSTID::remove(TreeEntry x){
-    TreePointer t = root;
-    //Localizar o x
-    search(x, t);// busca do elemento
-    if (t == NULL){
-        std::cerr << "Elemento não encontrado" << std::endl;
-        return false; //elemento não esta na arvore
+bool BSTID::remove(TreeEntry x, TreePointer &p){
 
-    } else { //removendo o elemento
+    //verificando se oelemnto existe
+    if (p == NULL){
+        std::cout << "\n falha ao remover o paciente" << std::endl;
+        return false; //elemento não esta na arvore
+    }
+
+    //Localizar o x
+    if( x < p->entry.id ){ return remove(x, p->leftNode); } // vai para esquerda
+    else if( x > p->entry.id ){ return remove(x, p->rightNode); } // vai para direita
+    
+    else { //removendo o elemento
         //Remover
         TreePointer q;
-        q = t; //q é o pai de tt
+        q = p; //q é o pai de p
             
-        if( q->leftNode == NULL ){ t = q->rightNode; } // reconectando a subarvore pelo lado direito
-        else if( q->rightNode == NULL ){ t = q->leftNode; } // reconectando a subarvore pelo lado esquerdo
+        if( q->leftNode == NULL ){ p = q->rightNode; } // reconectando a subarvore pelo lado direito
+        else if( q->rightNode == NULL ){ p = q->leftNode; } // reconectando a subarvore pelo lado esquerdo
 
         else{//se possue as 2 subarvores, busca o sucessor
             removeMin(q, q->rightNode);
-            delete q;
         }
 
-        this->QuantUsers -= 1;
-        return true; // elemento removido
-
+        delete q;
+        this->QuantUsers -= 1; // elemento removido
+        return true;
     }
 }
 

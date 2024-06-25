@@ -68,6 +68,7 @@ std::vector<User> readCSV(const std::string& filename) {
     return users;
 }
 
+
 int main() {
     std::string filename = "users.csv";
 
@@ -82,7 +83,7 @@ int main() {
     AVLID avlID;
     AVLBirthday avlBirthday;
 
-
+    //atribuindo o vetor do arquivo as arvores
     for (int i = 0; i < users.size(); i++) {
         int comp; //só pra usar o retorno na criação da arvore
         comp = bstName.insert(users[i]);
@@ -93,6 +94,7 @@ int main() {
         comp = avlBirthday.insert(users[i]);
     }
 
+    //MENU
 
     int escolhaDoMenu;
     int escolhaDoSubMenu;
@@ -113,7 +115,7 @@ int main() {
 
         cin >> escolhaDoMenu;
         switch (escolhaDoMenu) {
-            case 1:
+            case 1:{
                 while(!subMenuFinalizado) {
                     system("clear || cls");
                     std::cout << "------------------------------------" << std::endl;
@@ -126,9 +128,9 @@ int main() {
                     
                     cin >> escolhaDoSubMenu;
                     
+                    User userTemp; //declaração para usar na busca e prints
                     switch(escolhaDoSubMenu) {
-                        case 1:
-                            User userTemp;
+                        case 1:{
                             system("clear || cls");
                             std::cout << "------------------------------------" << std::endl;
                             std::cout << "Voce escolheu a opcao buscar paciente por ID." << std::endl;
@@ -138,13 +140,13 @@ int main() {
                             std::cout << "Voce buscou pelo paciente com o ID " << idTemporario << ".\n" << std::endl;
 
                             userTemp = avlID.search(idTemporario);
-                            if (isNULL(userTemp)){
+                            if (isNull(userTemp)){
                                 std::cout << "Usuario nao encontrado" << std::endl;
 
                             } else{
                                 std::cout << "ID: " << userTemp.id << "" << std::endl;
                                 std::cout << "Nome: " << userTemp.name << "" << std::endl;
-                                std::cout << "Dara de Nascimento: " << userTemp.birthday << "" << std::endl;
+                                std::cout << "Dara de Nascimento: " << formatDate(userTemp.birthday) << "" << std::endl;
                                 std::cout << "------------------------------------\n" << std::endl;
                             }
 
@@ -152,9 +154,8 @@ int main() {
                             cin >> continuar;
                             
                             break;
-                        
-                        case 2:
-                            User userTemp;
+                        }
+                        case 2:{
                             system("clear || cls");
                             std::cout << "------------------------------------" << std::endl;
                             std::cout << "Voce escolheu a opcao buscar paciente por Nome." << std::endl;
@@ -164,13 +165,13 @@ int main() {
                             std::cout << "Voce buscou pelo paciente com o Nome: " << nomeTemporario << ".\n" << std::endl;
 
                             userTemp = avlName.search(nomeTemporario);
-                            if (isNULL(userTemp)){
+                            if (isNull(userTemp)){
                                 std::cout << "Usuario nao encontrado" << std::endl;
                                 
                             } else{
                                 std::cout << "ID: " << userTemp.id << "" << std::endl;
                                 std::cout << "Nome: " << userTemp.name << "" << std::endl;
-                                std::cout << "Dara de Nascimento: " << userTemp.birthday << "" << std::endl;
+                                std::cout << "Dara de Nascimento: " << formatDate(userTemp.birthday) << "" << std::endl;
                                 std::cout << "------------------------------------\n" << std::endl;
                             }
                             
@@ -178,9 +179,8 @@ int main() {
                             cin >> continuar;
 
                             break;
-                        
-                        case 3:
-                            User userTemp;
+                        }
+                        case 3:{
                             system("clear || cls");
                             std::cout << "------------------------------------" << std::endl;
                             std::cout << "Voce escolheu a opcao buscar paciente pela Data de Nascimento." << std::endl;
@@ -189,16 +189,16 @@ int main() {
                             std::tm dataTemporaria = stringToDate(pedirDataDeNascimento());
 
                             std::cout << "\n------------------------------------" << std::endl;
-                            std::cout << "Voce buscou pelo paciente com a Data de Nascimento: " << dataTemporaria << ".\n" << std::endl;
+                            std::cout << "Voce buscou pelo paciente com a Data de Nascimento: " << formatDate(dataTemporaria) << ".\n" << std::endl;
 
                             userTemp = avlBirthday.search(dataTemporaria);
-                            if (isNULL(userTemp)){
+                            if (isNull(userTemp)){
                                 std::cout << "Usuario nao encontrado" << std::endl;
                                 
                             } else{
                                 std::cout << "ID: " << userTemp.id << "" << std::endl;
                                 std::cout << "Nome: " << userTemp.name << "" << std::endl;
-                                std::cout << "Dara de Nascimento: " << userTemp.birthday << "" << std::endl;
+                                std::cout << "Dara de Nascimento: " << formatDate(userTemp.birthday) << "" << std::endl;
                                 std::cout << "------------------------------------\n" << std::endl;
                             }
 
@@ -206,20 +206,21 @@ int main() {
                             cin >> continuar;
 
                             break;
-                        
-                        case 4:
+                        }
+                        case 4:{
                             system("clear || cls");
                             subMenuFinalizado = true;
                             break;
-
-                        default:
+                        }
+                        default:{
                             std::cout << "escolha invalida" << std::endl;
                             break;
+                        }
                     }
                 }
                 break;
-
-            case 2:
+            }
+            case 2:{
                 User userTemp;
                 system("clear || cls");
                 std::cout << "------------------------------------" << std::endl;
@@ -316,8 +317,8 @@ int main() {
                 }
 
                 break;
-
-            case 3:
+            }
+            case 3:{
                 while(!subMenuFinalizado) {
                     system("clear || cls");
                     std::cout << "------------------------------------" << std::endl;
@@ -330,26 +331,25 @@ int main() {
                     
                     cin >> escolhaDoSubMenu;
                     
+                    User userTemp; //declaração para usar na busca e prints
                     switch(escolhaDoSubMenu) {
-
-                        User userTemp;
-                        case 1:
+                        case 1:{
                             system("clear || cls");
                             std::cout << "------------------------------------" << std::endl;
                             std::cout << "Voce escolheu a opcao remover paciente por ID." << std::endl;
                             std::cout << "------------------------------------" << std::endl;      
 
-                            idTemporario = pedirId();
+                            int idTemporario = pedirId();
                             userTemp = avlID.search(idTemporario);
-                            if (isNULL(userTemp)){
+                            if (isNull(userTemp)){
                                 std::cout << "\nUsuario nao encontrado" << std::endl;
                                 
                             } else{
-                                bstName.remove(userTemp.id);
-                                bstID.remove(userTemp.name);
+                                bstID.remove(userTemp.id);
+                                bstName.remove(userTemp.name);
                                 bstBirthday.remove(userTemp.birthday);
-                                avlName.remove(userTemp.id);
-                                avlID.remove(userTemp.name);
+                                avlID.remove(userTemp.id);
+                                avlName.remove(userTemp.name);
                                 avlBirthday.remove(userTemp.birthday);
                                 std::cout << "\nUsuario removido" << std::endl;
                             }
@@ -359,51 +359,48 @@ int main() {
                             cin >> continuar;
                             
                             break;
-                        
-                        case 2:
-                            User userTemp;
+                        }
+                        case 2:{
                             system("clear || cls");
                             std::cout << "------------------------------------" << std::endl;
                             std::cout << "Voce escolheu a opcao remover paciente por Nome." << std::endl;
                             std::cout << "------------------------------------" << std::endl;
 
-                            nomeTemporario = pedirNome();
-                            userTemp = avlID.search(nomeTemporario);
-                            if (isNULL(userTemp)){
+                            std::string nomeTemporario = pedirNome();
+                            userTemp = avlName.search(nomeTemporario);
+                            if (isNull(userTemp)){
                                 std::cout << "\nUsuario nao encontrado" << std::endl;
                                 
                             } else{
-                                bstName.remove(userTemp.id);
-                                bstID.remove(userTemp.name);
+                                bstID.remove(userTemp.id);
+                                bstName.remove(userTemp.name);
                                 bstBirthday.remove(userTemp.birthday);
-                                avlName.remove(userTemp.id);
-                                avlID.remove(userTemp.name);
+                                avlID.remove(userTemp.id);
+                                avlName.remove(userTemp.name);
                                 avlBirthday.remove(userTemp.birthday);
-                                std::cout << "\nUsuario removido" << std::endl;
                             }
                             
                             std::cout << "\nDigite qualquer qualquer coisa para continuar..." << std::endl;
                             cin >> continuar;
                             break;
-                        
-                        case 3:
-                            User userTemp;
+                        }
+                        case 3:{
                             system("clear || cls");
                             std::cout << "------------------------------------" << std::endl;
                             std::cout << "Voce escolheu a opcao remover paciente pela Data de Nascimento." << std::endl;
                             std::cout << "------------------------------------" << std::endl;
                         
                             std::tm dataTemporaria = stringToDate(pedirDataDeNascimento());
-                            userTemp = avlID.search(dataTemporaria);
-                            if (isNULL(userTemp)){
+                            userTemp = avlBirthday.search(dataTemporaria);
+                            if (isNull(userTemp)){
                                 std::cout << "\nUsuario nao encontrado" << std::endl;
                                 
                             } else{
-                                bstName.remove(userTemp.id);
-                                bstID.remove(userTemp.name);
+                                bstID.remove(userTemp.id);
+                                bstName.remove(userTemp.name);
                                 bstBirthday.remove(userTemp.birthday);
-                                avlName.remove(userTemp.id);
-                                avlID.remove(userTemp.name);
+                                avlID.remove(userTemp.id);
+                                avlName.remove(userTemp.name);
                                 avlBirthday.remove(userTemp.birthday);
                                 std::cout << "\nUsuario removido" << std::endl;
                             }
@@ -411,27 +408,29 @@ int main() {
                             std::cout << "Usuario removido. \nDigite qualquer qualquer coisa para continuar..." << std::endl;
                             cin >> continuar;
                             break;;
-                        
-                        case 4:
+                        }
+                        case 4:{
                             system("clear || cls");
                             subMenuFinalizado = true;
                             break;
-
-                        default:
+                        }
+                        default:{
                             std::cout << "escolha invalida" << std::endl;
                             break;
+                        }
                     }
                 }
                 break;
-
-            case 4:
+            }
+            case 4:{
                 menuFinalizado = true;
                 break;
-
-            default:
+            }
+            default:{
                 std::cout << "escolha invalida" << std::endl;
                 menuFinalizado = false;
                 break;
+            }
         }
     }
     return 0;

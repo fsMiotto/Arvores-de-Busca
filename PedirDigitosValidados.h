@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
-
+#include <regex>
+#include <sstream>  // Para std::ostringstream
+#include <iomanip>  // Para std::put_time
 
 using namespace std;
 
@@ -76,14 +78,12 @@ int pedirId() {
 }
 
 // Esta função verifica se o que foi digitado quando foi pedido uma data de nascimento é valido.
-bool validarDataDeNascimento(string valorInserido) {
-    bool verificarFormatoData(const std::string& valorInserido) {
+bool validarDataDeNascimento(const std::string& valorInserido) {
     // Expressão regular para o formato YYYY-MM-DD
     std::regex padrao("^\\d{4}-\\d{2}-\\d{2}$");
 
     // Verifica se a string data corresponde ao padrão
     return std::regex_match(valorInserido, padrao);
-}
 }
 
 
@@ -99,4 +99,11 @@ string pedirDataDeNascimento() {
     }
     
     return valorInserido;
+}
+
+//transforma o tm por um string para printar
+std::string formatDate(const std::tm& date) {
+    std::ostringstream oss;
+    oss << std::put_time(&date, "%Y-%m-%d");
+    return oss.str();
 }

@@ -32,7 +32,7 @@ int AVLID::altura_e_folhas(TreePointer& p){
 }
 
 //Esse método de procura acha o elemento na arvore e retorna a estrutura, usado na main para buscar e imprimir o usuário
-User::User AVLID::search(TreeEntry x){
+User AVLID::search(TreeEntry x){
     TreePointer t=root;
     while ( t != NULL && t->entry.id != x ){
         if( x < t->entry.id ){ t = t->leftNode; } // procurar na subárvore esquerda
@@ -49,8 +49,7 @@ User::User AVLID::search(TreeEntry x){
 
 int AVLID::insert(User newUser){ // método público
     bool h = false;// inicio do método de incerção com h = false para recursao
-    int comp = insert(newUser, root, h);
-    return comp;
+    return insert(newUser, root, h);
 }
 
 
@@ -170,6 +169,16 @@ int AVLID::insert(User newUser, TreePointer &pA, bool &h) {
     this->MediaRotacao = (this->MediaRotacao*this->QuantUsers + rotacao) / this->QuantUsers; //atualizando a média de rotações
     this->MediaComp = (this->MediaComp*this->QuantUsers + comp) / this->QuantUsers; //atualizando a média de comparações
     return comp;// finalizandoo e retornando a quantidade de comparações
+}
+
+//metodo de remocao publico
+void AVLID::remove(TreeEntry x){
+    bool h = false;
+    if(remove(x, root, h)){
+        std::cout << "\n Paciente removido" << std::endl; 
+    } else{
+        std::cout << "\n falha ao remover o paciente" << std::endl;
+    }
 }
 
 // metodo de remocao

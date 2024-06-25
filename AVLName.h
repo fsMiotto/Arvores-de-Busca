@@ -18,6 +18,7 @@ class AVLName {
         
         //metodos
         int insert(User newUser, TreePointer &pA, bool &h);
+        bool remove(TreeEntry x, TreePointer &p, bool &h);
         void removeMin(TreePointer &q, TreePointer &r, bool &h);
         void rotacaoL(TreePointer &pA, bool &h);
         void rotacaoR(TreePointer &pA, bool &h);
@@ -39,9 +40,9 @@ class AVLName {
         //metodos
         AVLName(); //inicializando
         ~AVLName(){} //encerrando
-        User::User search(TreeEntry x);
+        User search(TreeEntry x);
         int insert(User newUser);
-        bool remove(TreeEntry x, TreePointer &p, bool &h);
+        void remove(TreeEntry x);
         void altura_e_folhas();
 
         //variaveis
