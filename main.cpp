@@ -1,4 +1,12 @@
- #include <iostream>
+/*
+FEITO POR:
+Felipe Silveira Miotto       13750398
+Ruan dos Santos Zia          13727680
+Luiz Carlos Ferreira Ramos   12561882
+*/
+
+
+#include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
